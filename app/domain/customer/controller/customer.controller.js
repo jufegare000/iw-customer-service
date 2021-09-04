@@ -1,13 +1,40 @@
-var express = require('express');
-var router = express.Router();
+(function () {
+    'use strict';
 
-router.get('/', function (req, res) {
-    res.send('Wiki home page');
-  })
-  
+    var express = require('express');
+    var router = express.Router();
 
-router.get('/about', function (req, res) {
-res.send('About this wiki');
-})
+    var CustomerMiddleware = require('./customer.module')().CustomerMiddleware;
 
-module.exports = router;
+    router.post('/',
+        CustomerMiddleware.addCustomer,
+        function (req, res) {
+            res.status(201).json(req.response);
+        });
+
+    router.get('/',
+        CustomerMiddleware.getCustomers,
+        function (req, res) {
+            res.status(200).json(req.response);
+        });
+
+    router.get('/:customerId',
+        CustomerMiddleware.getCustomerById,
+        function (req, res) {
+            res.status(200).json(req.response);
+        });
+
+    router.put('/:customerId',
+        CustomerMiddleware.modifyCustomer,
+        function (req, res) {
+            res.status(200).json(req.response);
+        });
+    
+    router.delete('/:customerId',
+        CustomerMiddleware.removeCustomer,
+        function (req, res) {
+            res.status(200).json(req.response);
+        });
+    module.exports = router;
+
+})();
