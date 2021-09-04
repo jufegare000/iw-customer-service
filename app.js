@@ -6,8 +6,8 @@ var logger = require('morgan');
 
 var app = express();
 
-var MongoDBUtil = require('./modules/mongodb/mongodb.module').MongoDBUtil;
-var CustomerController = require('./modules/customer/customer.module')().CustomerController;
+var MongoDBUtil = require('./app/infrastructure/modules/mongodb/mongodb.module').MongoDBUtil;
+var CustomerController = require('./app/domain/customer/controller/customer.controller');
 
 app.use(logger('dev'));
 app.use(express.json());
